@@ -1,0 +1,12 @@
+{
+  "appId": "com.koreatravel.companion",
+  "appName": "Korea Travel Companion",
+  "webDir": "dist",
+  "backgroundColor": "#0a0a0a",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}

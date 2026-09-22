@@ -1,0 +1,6 @@
+{
+  "name": "South Korea Travel Companion",
+  "description": "Daegu-focused offline-ready traveler guide for South Korea with real-time location tracking, local transit & landmark finder, residency pin-pointer, SOS emergency tools, currency converter, and Korean phrasebook.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
