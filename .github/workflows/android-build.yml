@@ -1,0 +1,73 @@
+name: Build Android APK
+
+# Builds an installable, signed APK of Korea Travel Companion.
+# Run it from the Actions tab (or push to main) and download the APK from the run's
+# "Artifacts" section at the bottom of the run summary page.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install web dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Sync Capacitor Android project
+        run: npx cap sync android
+
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      # A release build needs a signing key or the APK can't be installed on a device.
+      # This creates one automatically on first run and reuses it on every run after (as long as
+      # this repo keeps its Actions cache), so you always get one APK you can update in place.
+      - name: Create a persistent release signing key
+        run: |
+          mkdir -p android/keystore
+          if [ ! -f android/keystore/release.keystore ]; then
+            keytool -genkeypair -v \
+              -keystore android/keystore/release.keystore \
+              -alias korea-travel -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass korea-travel-companion -keypass korea-travel-companion \
+              -dname "CN=Korea Travel Companion, OU=Personal, O=Personal, L=Daegu, S=, C=KR"
+          fi
+
+      - name: Cache the signing key across runs
+        uses: actions/cache@v4
+        with:
+          path: android/keystore
+          key: android-release-keystore
+
+      - name: Build release APK
+        working-directory: android
+        env:
+          RELEASE_STORE_FILE: keystore/release.keystore
+          RELEASE_STORE_PASSWORD: korea-travel-companion
+          RELEASE_KEY_ALIAS: korea-travel
+          RELEASE_KEY_PASSWORD: korea-travel-companion
+        run: ./gradlew assembleRelease --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: korea-travel-companion-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 90
