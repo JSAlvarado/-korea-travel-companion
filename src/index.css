@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Clean dark mode filter for street map tiles (leaves satellite imagery natural) */
+.leaflet-dark-streets .leaflet-tile {
+  filter: brightness(0.85) invert(1) contrast(1.15) hue-rotate(190deg) saturate(0.5);
+}
+
+.google-map-tooltip {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(75, 85, 99, 0.4) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  padding: 4px 8px !important;
+}
+
+.google-map-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* Hide scrollbar on mobile chip bars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---- Offline vector basemap (sits under online tiles; visible when tiles are unavailable) ---- */
+.leaflet-container { background: #cfe2ee; }
+.dark .leaflet-container { background: #0b1220; }
+
+.ob-land { fill: #f3f1ea; fill-opacity: 1; stroke: #7f8b98; stroke-width: 1.4px; stroke-linejoin: round; }
+.dark .ob-land { fill: #1b2431; stroke: #566273; }
+.ob-muni { fill: none; stroke: #a3aeba; stroke-width: 0.9px; }
+.dark .ob-muni { stroke: #3d4859; }
+.ob-dist { fill: none; stroke: #c3cad2; stroke-width: 0.6px; stroke-dasharray: 3 3; }
+.dark .ob-dist { stroke: #303a49; }
+
+.ob-label { pointer-events: none; }
+.ob-label span { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); white-space: nowrap; text-align: center; line-height: 1.1; color: #3b4652; text-shadow: 0 0 3px #fff, 0 0 3px #fff; }
+.dark .ob-label span { color: #b6c0cc; text-shadow: 0 0 3px #0b1220, 0 0 3px #0b1220; }
+.ob-label .ob-en { font: 600 11px/1.1 system-ui, sans-serif; margin-top: -6px; }
+.ob-label .ob-ko { font: 500 9px/1.1 system-ui, sans-serif; margin-top: 6px; opacity: 0.8; }
+.ob-l-prov .ob-en { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.ob-l-dist .ob-en { font-size: 10px; font-weight: 500; }
+.ob-l-dist .ob-ko { font-size: 8px; }
+
+.no-page-scroll, .no-page-scroll body { overflow: hidden; }
