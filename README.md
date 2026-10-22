@@ -1,11 +1,31 @@
 # South Korea Travel Companion
 
-Offline-first Daegu-focused travel guide: live map with landmarks and bike routes,
-transit info, a staycation/residency pin, SOS emergency tools, a currency converter,
-and a Korean phrasebook. All guide data (landmarks, transit, phrases, emergency
-contacts, currency table) and a vector map of South Korea are bundled into the app
-itself, so it opens and works fully with **no internet connection**. When online, it
-also shows live map tiles, live currency rates, and live Daegu weather.
+An offline-first travel guide for South Korea, focused on Daegu, built by Johnstheward S. Alvarado. Everything a
+visitor needs (a map with landmarks and bike routes, transit information, emergency tools, a currency converter and
+a Korean phrasebook) is bundled into the app, so it works fully with **no internet connection**. When online, it adds
+live map tiles, live currency rates and live Daegu weather.
+
+## Features
+
+| Feature | What it does |
+|---|---|
+| **Map** | Landmarks and bike routes on a live map, with a bundled offline vector map of South Korea (province, city and district borders and names) whenever live tiles can't be reached |
+| **Transit** | Bundled transit information for getting around |
+| **Residency pin** | Marks where you are staying, so you can always find your way back |
+| **SOS** | Emergency tools and contacts |
+| **Currency converter** | A bundled rate table, updated with live rates when online |
+| **Korean phrasebook** | Useful phrases for daily situations |
+| **Weather** | Live Daegu weather when online |
+| **Offline map tiles** | A service worker caches the map tiles you have viewed so they are available again offline |
+
+## Tech stack
+
+- **React 19 + TypeScript**, built with **Vite** and styled with **Tailwind CSS**
+- **Leaflet** maps, with Google Maps support
+- **Capacitor** for the Android app and **Electron** for the Windows, Mac and Linux desktop app
+- **GitHub Actions** builds and signs the Android APK on GitHub's servers (`.github/workflows/android-build.yml`)
+
+---
 
 This is a native app, not a website — there's nothing to host. It ships as:
 - **Windows / Mac / Linux desktop app** (Electron)
